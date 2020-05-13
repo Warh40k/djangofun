@@ -3,12 +3,14 @@ import datetime
 from django.utils import timezone
 
 class Article(models.Model):
-    article_title =  models.CharField('Название статьи', max_length = 200)
-    article_text = models.TextField('Текст статьи')
-    #article_author = models.CharField('Имя автора', max_length = 200)
-    pub_date = models.DateTimeField('Дата публикации')
+    article_title =  models.CharField('Название статьи', max_length = 200, default = "Без названия")
+    article_text = models.TextField('Текст статьи', default = "Тут пусто")
+    article_author = models.CharField('Имя автора', max_length = 200,default="Без автора")
+    pub_date = models.DateTimeField('Дата публикации',default = timezone.now())
+    
     def __str__(self):
-        return self.article_title
+        return "{0}: {1}".format(self.article_author,self.article_title)
+
     def was_published_recently(self):
         return self.pub_date >= (timezone.now()  - datetime.timedelta(days = 7))
     class Meta:
