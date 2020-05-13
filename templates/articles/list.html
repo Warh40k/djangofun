@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Название статьи{% endblock %}
+
+{% block content %}
+    <h1>Список статей от автора Никитос</h1>
+  {% if latest_articles_list %}
+    {% for a in latest_articles_list %}
+
+        <a href="{% url 'articles:detail' a.id %}">{{a.article_title}}</a><br>
+        <!-- двойной брейс - вывод чего-то на экран -->
+    {% endfor %}
+
+  {% else %}
+    Статьи не найдены =(
+  {% endif %}
+{% endblock %}
